@@ -18,13 +18,28 @@ class ProductsMongoDAO {
   }
 
   async getProductByIdDAO(id) {
-    return await this._collection.findOne({ _id: new ObjectId(id) });
+      return await this._collection.findOne({ _id: new ObjectId(id) });
   }
+
+  async getProductsByCategoryDAO(category) {
+    return await this._collection.find({ category }).toArray();
+}
 
   async createProductDAO(productPayload) {
     const newProducts = new ProductsDTO(productPayload);
     await this._collection.insertOne(newProducts);
     return newProducts;
+  }
+
+  async deleteProductDAO(id) {
+    return await this._collection.deleteOne({ _id: new ObjectId(id) });
+  }
+
+  async updateProductDAO(id, item) {
+    return await this._collection.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: {...item} }
+    )
   }
 }
 

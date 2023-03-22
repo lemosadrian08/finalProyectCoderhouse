@@ -44,10 +44,21 @@ class CartsMongoDAO {
     )
   }
 
+  async emptyCartDAO(id){
+    return await this._collection.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: { products: [] } }
+    )
+  }
+
   async createCartDAO(cartPayload) {
     const newCarts = new CartsDTO(cartPayload);
     await this._collection.insertOne(newCarts);
     return newCarts;
+  }
+
+  async deleteCartDAO(id) {
+    return await this._collection.deleteOne({ _id: new ObjectId(id) });
   }
 }
 

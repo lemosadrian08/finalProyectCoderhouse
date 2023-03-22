@@ -13,5 +13,5 @@ router.delete('/:id', cartsController.deleteCart);
 router.get('/:id/products', cartsController.getProductsFromACart);
 router.post('/:idc/products/:idp', cartsController.addProductToCart);
 router.delete('/:idc/products/:idp', cartsController.deleteAProductFromACart);
-
+router.post('/:idc/checkout', cartsController.checkout)
 module.exports = router;

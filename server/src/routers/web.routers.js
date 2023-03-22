@@ -4,22 +4,36 @@ const passport =require('../middlewares/passport.middleware')
 const auth = require('../middlewares/auth.middleware')
 const router = Router();
 
+const multer = require('multer');
+const storage = require('../middlewares/multer.middleware')
+const upload = multer({ storage: storage });
+const WebController = require('../controllers/web.controller')
+const webController = new WebController();
+
+
+router.get('/chat',auth,webController.renderChat);
+router.get('/serverInfo',auth,webController.renderServerInfo);
+router.get('/products',auth,webController.renderProducts);
+router.get('/',auth, webController.renderIndex);
+router.get('/logout',auth, webController.logout);
+router.get('/cart',auth, webController.renderCart);
+router.get('/products/:idp',auth, webController.renderProductView);
+router.post('/checkout',auth, webController.checkout)
+router.post('/carts/:idc/products/:idp',auth, webController.addProductToCart);
+
 
 router.post('/logIn',
 passport.authenticate('logIn', {
-  failureRedirect: '/logIn-error',
-    successRedirect: '/home'
-    })
-    );
+  failureRedirect: '/logIn-error', 
+  successRedirect: '/'
+}));
     
- 
-
 router.post('/signUp',
-passport.authenticate('signUp', { 
-        failureRedirect: '/signUp-error',
-        successRedirect: '/logIn'
-      })
-  );
+upload.single('image'),
+passport.authenticate('signUp', {
+  failureRedirect: '/signUp-error',
+  successRedirect: '/logIn'
+}));
  
   
 router.get('/unauthorized', (req, res) => {
@@ -45,14 +59,7 @@ router.get('/logIn-error', (req, res) => {
 router.get('/logIn', (req, res) => {
     return res.sendFile(path.resolve(__dirname,'../public/login.html'));
   });
-  router.get('/home',auth, (req, res) => {
-    return res.sendFile(path.resolve(__dirname,'../public/home.html'));
-  });
-  router.get('/profile',auth, (req, res) => {
-    return res.sendFile(path.resolve(__dirname,'../public/profile.html'));
-  });
-  router.get('/',auth, (req, res) => {
-    return res.sendFile(path.resolve(__dirname,'../public/home.html'));
-  });  
+
+
 module.exports = router;
 

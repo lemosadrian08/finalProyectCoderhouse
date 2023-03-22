@@ -40,20 +40,24 @@ class UsersApi {
     return await this.usersDAO.createUserDAO(userPayload);
   }
 
-/*   async updateUser(id, userPayload) {
+  async deleteUser(id) {
+    if (!id) {
+      throw new HTTPError(STATUS.BAD_REQUEST, 'The id param is a required field');
+    }
+    const user = await this.usersDAO.getUserByIdDAO(id);
+    if (!user) {
+      throw new HTTPError(STATUS.NOT_FOUND, 'The user does not exist in our records');
+    }
+    return await this.usersDAO.deleteUserDAO(id);
+  }
+
+  async updateUser(id, userPayload) {
     if (!id) {
       throw new HTTPError(STATUS.BAD_REQUEST, 'The id param is a required field');
     }
     await UsersSchema.validate(userPayload);
     return await this.usersDAO.updateUserDAO(id, userPayload);
   }
-
-  async deleteUser(id) {
-    if (!id) {
-      throw new HTTPError(STATUS.BAD_REQUEST, 'The id param is a required field');
-    }
-    return await this.usersDAO.deleteUserDAO(id);
-  } */
 }
 
 module.exports = UsersApi;

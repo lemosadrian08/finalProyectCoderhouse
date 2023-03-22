@@ -31,6 +31,15 @@ class UsersMongoDAO {
     await this._collection.insertOne(newUsers);
     return newUsers;
   }
+  async deleteUserDAO(id) {
+    return await this._collection.deleteOne({ _id: new ObjectId(id) });
+  }
+  async updateUserDAO(id, item) {
+    return await this._collection.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: {...item} }
+    )
+  }
 }
 
 module.exports = UsersMongoDAO;

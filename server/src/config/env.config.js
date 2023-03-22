@@ -7,7 +7,6 @@ dotenv.config({
     path: path.resolve(process.cwd(), `${process.env.NODE_ENV || 'development'}.env`)
 });
 
-
 const args = minimist(process.argv.slice(2),{
     alias:{
       p: 'port',
@@ -21,8 +20,12 @@ const args = minimist(process.argv.slice(2),{
 
 module.exports = {
     MODE: args.mode,
-    PORT: args.port || process.env.PORT || 8080,
+    SESSION_TIME: parseInt(process.env.SESSION_TIME) || 120000,
+    PORT: args.port || parseInt(process.env.PORT) || 8080,
     NODE_ENV: process.env.NODE_ENV || 'development',
     HOST: process.env.HOST || 'localhost',
-    DATA_SOURCE: process.env.DATA_SOURCE || 'MEM' // 'MEM' | 'FILE' | 'MONGO'
+    DATA_SOURCE: process.env.DATA_SOURCE || 'MEM', // 'MEM' | 'FILE' | 'MONGO'
+
+    ADMIN_EMAIL: process.env.ADMIN_EMAIL,
+    ADMIN_EMAIL_PASSWORD: process.env.ADMIN_EMAIL_PASSWORD,
 };

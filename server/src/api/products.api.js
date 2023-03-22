@@ -14,15 +14,29 @@ class ProductsApi {
   }
 
   async getProductById(id) {
-    if (!id) {
-      throw new HTTPError(STATUS.BAD_REQUEST, 'The id param is a required field');
+      if (!id) {
+        throw new HTTPError(STATUS.BAD_REQUEST, 'The id param is a required field');
+      }
+      const product = await this.productsDAO.getProductByIdDAO(id);
+      if (!product) {
+        throw new HTTPError(STATUS.NOT_FOUND, 'The product does not exist in our records');
+      }
+      return product;
+  }
+
+
+  async getProductsByCategory(category) {
+    if (!category) {
+      throw new HTTPError(STATUS.BAD_REQUEST, 'The category param is a required field');
     }
-    const product = await this.productsDAO.getProductByIdDAO(id);
+    const product = await this.productsDAO.getProductsByCategoryDAO(category);
     if (!product) {
       throw new HTTPError(STATUS.NOT_FOUND, 'The product does not exist in our records');
     }
     return product;
   }
+
+
 
   async createProduct(productPayload) {
     await ProductsSchema.validate(productPayload);
@@ -40,6 +54,10 @@ class ProductsApi {
   async deleteProduct(id) {
     if (!id) {
       throw new HTTPError(STATUS.BAD_REQUEST, 'The id param is a required field');
+    }
+    const product = await this.productsDAO.getProductByIdDAO(id);
+    if (!product) {
+      throw new HTTPError(STATUS.NOT_FOUND, 'The product does not exist in our records');
     }
     return await this.productsDAO.deleteProductDAO(id);
   }

@@ -1,6 +1,5 @@
 const { successResponse, STATUS } = require("../utils/api.utils");
 const CartsApi = require('../api/carts.api');
-
 const api = new CartsApi();
 class CartsController {
   constructor() {
@@ -78,6 +77,20 @@ class CartsController {
       next(error);
     }
   }
+
+  async checkout(req, res, next) {
+    const { address } = req.body;
+    const user = req.user;
+    try {
+      const order = await api.checkout(address, user);
+      const response = successResponse(order, STATUS.CREATED);
+      return res.status(STATUS.CREATED).json(response);
+    }
+    catch(error) {
+      next(error);
+    }
+  }
+
 
   async updateCart(req, res, next) {
     const { id } = req.params;

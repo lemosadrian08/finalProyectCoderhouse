@@ -30,6 +30,19 @@ class ProductsController {
     }
   }
 
+  async getProductsByCategory(req, res, next) {
+    const  category  = req.params;
+    try {
+      const products = await api.getProductsByCategory(category.category);
+      const response = successResponse(products, STATUS.OK);
+      return res.status(STATUS.OK).json(response);
+    }
+    catch(error) {
+      next(error);
+    }
+  }
+
+
   async createProduct(req, res, next) {
     const productPayload = req.body;
     try {

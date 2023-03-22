@@ -1,7 +1,7 @@
 class UsersDTO {
     constructor(userItem, _id) {
       Object.assign(this, userItem);
-      this.cart = userItem.cart || [] 
+      this.type = userItem.type || "user";
       this.createdAt = userItem.createdAt || new Date().toISOString();
       this.updatedAt = new Date().toISOString();
       if (_id) {

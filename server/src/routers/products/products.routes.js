@@ -7,8 +7,9 @@ const productsController = new ProductsControllers();
 
 router.get('/', productsController.getProducts);
 router.get('/:id', productsController.getProductById);
+router.get('/category/:category', productsController.getProductsByCategory);
 router.post('/', productsController.createProduct);
-/* router.put('/:id', productsController.updateProduct);
-router.delete('/:id', productsController.deleteProduct); */
+router.put('/:id', productsController.updateProduct);
+router.delete('/:id', productsController.deleteProduct);
 
 module.exports = router;

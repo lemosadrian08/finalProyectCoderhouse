@@ -1,0 +1,12 @@
+{{>nav}}
+<div class="container mt-3 jumbotron">
+  <h3 class="text-primary">Chat</h3><br>
+  <form onsubmit="return addMessage(this)">
+    <input type="text" id="email" class="form-control w-50 my-2 mr-2" placeholder="Email"/>
+    <hr>
+    <input type="text" id="text" class="form-control w-50 my-2 mr-2" placeholder="Message" />
+    <input type="submit" value="Send" class="btn btn-primary my-2"/>
+  </form>
+  <!-- messages -->
+  <div id="messages"></div>
+</div>

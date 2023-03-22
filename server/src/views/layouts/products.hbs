@@ -1,0 +1,52 @@
+{{>nav}}
+<div class="container mt-3 jumbotron">
+  <h3 class="text-primary"> Products </h3><br>
+{{#if products.length}}
+    <div class="table-responsive">
+        <table class="table table-dark">
+            <tr class="text-warning">
+                <th class="font-weight-bold">Album</th>
+                <th class="font-weight-bold">Band</th>
+                <th class="font-weight-bold">Price</th>
+                <th class="font-weight-bold">Category</th>
+                <th class="font-weight-bold">Thumbnail</th>
+            </tr>
+            {{#each products}}
+                <tr>
+                    <td>
+                        {{this.name}}
+                    </td>
+                    <td>
+                        {{this.description}}
+                    </td>
+                    <td>
+                        {{this.unitPrice}}
+                    </td>
+                    <td>
+                        {{this.category}}
+                    </td>
+                    <td>
+                        <img src="{{this.thumbnail}}">        
+                    </td>
+                    <td>
+
+                    <form method="get" action="/products/{{this._id}}">
+                        <button type="submit" class="btn btn-primary">
+                            View Product
+                        </button>
+                    </form>
+
+                        {{!-- <a href="/products/{{productId}}" class="text-blue-300 font-bold no-underline">
+					        {{this.name}}
+				        </a> --}}
+                        {{!-- <button type="button" class="btn btn-primary">View product</button> --}}
+                    </td>
+                </tr>
+            {{/each}}            
+        </table>
+    </div>
+{{else}}
+    <h3 class="alert alert-danger">Data not found</h3>
+{{/if}}
+    
+</div>

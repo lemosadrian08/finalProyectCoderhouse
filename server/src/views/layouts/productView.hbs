@@ -1,0 +1,18 @@
+{{>nav}}
+<div class="container mt-3 jumbotron">
+<main class="m-4 relative h-max">
+<h1>Album: {{product.name}}</h1>
+<h1>Band: {{product.description}}</h1>
+<h1>Category: {{product.category}}</h1>
+<h1>Price: ${{product.unitPrice}}</h1>
+<div class="container mt-3 jumbotron">
+	<img src="{{product.thumbnail}}" alt="">
+</div>
+<form method="post" action="/carts/{{cartId}}/products/{{product._id}}">
+	<input type="number" min="0" value="1" name="quantity" class="rounded h-10 p-2 w-12 mr-2">
+	<button type="submit" class="btn btn-primary">
+		Add to Cart
+	</button>
+</form>
+</main>
+</div>
