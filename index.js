@@ -60,7 +60,7 @@ app.use(passport.session())
 //API routes
 app.use('/', main)
 app.use('/api', apiRoutes);
-
+ 
 //Error middleware
 app.use(errorMiddleware);
 
