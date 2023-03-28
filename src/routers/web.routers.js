@@ -12,6 +12,7 @@ const webController = new WebController();
 
 
 router.get('/chat',auth,webController.renderChat);
+router.get('/profile',auth,webController.renderProfile);
 router.get('/serverInfo',auth,webController.renderServerInfo);
 router.get('/products',auth,webController.renderProducts);
 router.get('/',auth, webController.renderIndex);

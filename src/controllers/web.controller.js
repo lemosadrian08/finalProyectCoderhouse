@@ -92,6 +92,16 @@ catch(error) {
     }
   }
 
+  async renderProfile(req, res, next) {
+    try {
+      const user = req.user; 
+      res.status(STATUS.OK).render('profile', { user });
+    }
+    catch(error) {
+      next(error);
+    }
+  }
+
   async logout(req, res, next) {
     try {
       req.session.destroy(error => {
